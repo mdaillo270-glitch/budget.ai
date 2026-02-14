@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Budget & Dépenses - IA</title>
+    <meta name="description" content="Smart AI-powered expense tracking and budget management app. Track expenses, manage budgets, scan bills, and get AI financial advice.">
+    <meta name="keywords" content="budget, expenses, AI, finance, tracking, gestion, dépenses">
+    <meta property="og:title" content="Gestion Budget & Dépenses - IA">
+    <meta property="og:description" content="Smart AI-powered expense tracking and budget management.">
+    <meta property="og:type" content="website">
+    <style>
+        :root {
+            --primary: #0D3B66;
+            --accent: #0E7C7B;
+            --bg: #F8FAFC;
+            --card: #FFFFFF;
+            --text: #1E293B;
+            --muted: #64748B;
+            --border: #E2E8F0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0A2342, #0D3B66, #1A5276, #0E7C7B);
+            color: white;
+            padding: 80px 24px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(14,124,123,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.05) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .hero .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            font-weight: 300;
+        }
+        .hero .tagline {
+            font-size: 15px;
+            opacity: 0.7;
+            margin-bottom: 40px;
+        }
+        .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+        .btn-primary { background: white; color: var(--primary); }
+        .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.4); }
+        .btn-outline:hover { border-color: white; }
+
+        /* Features */
+        .features {
+            max-width: 1000px;
+            margin: -30px auto 0;
+            padding: 0 20px 60px;
+            position: relative;
+            z-index: 2;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .feature-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--primary); }
+        .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+        /* Pricing */
+        .pricing {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+            text-align: center;
+        }
+        .pricing h2 { font-size: 28px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+        .pricing .desc { font-size: 15px; color: var(--muted); margin-bottom: 32px; }
+        .pricing-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        .pricing-card .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #10B981);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .pricing-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+        .pricing-card .price { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+        .pricing-card ul { list-style: none; padding: 0; }
+        .pricing-card li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pricing-card li:last-child { border-bottom: none; }
+        .check { color: #10B981; font-weight: bold; }
+        .limit { color: var(--muted); font-size: 12px; }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .footer-links a:hover { color: white; }
+        .footer .copyright { font-size: 13px; opacity: 0.6; }
+        .footer .contact { font-size: 13px; opacity: 0.7; margin-top: 8px; }
+        .footer .contact a { color: rgba(255,255,255,0.9); }
+
+        @media (max-width: 600px) {
+            .hero { padding: 60px 16px 48px; }
+            .hero h1 { font-size: 26px; }
+            .hero .subtitle { font-size: 16px; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-content">
+        <div class="logo-icon">💰</div>
+        <h1>Gestion Budget<br>& Dépenses - IA</h1>
+        <p class="subtitle">Smart AI-powered expense tracking & budget management</p>
+        <p class="tagline">Track expenses, manage budgets, scan bills, and get personalized AI financial advice — all in one app.</p>
+        <div class="cta-buttons">
+            <a href="https://play.google.com/store/apps/details?id=com.budget.ai" class="btn btn-primary">
+                ▶ Get on Google Play
+            </a>
+            <a href="#features" class="btn btn-outline">
+                Learn More ↓
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Features -->
+<div class="features" id="features">
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #EFF6FF; color: #2563EB;">📊</div>
+            <h3>Expense Tracking</h3>
+            <p>Log income and expenses with categories, notes, and receipts. See daily, weekly, and monthly breakdowns at a glance.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #F0FDF4; color: #16A34A;">🎯</div>
+            <h3>Budget Management</h3>
+            <p>Set budgets, savings goals, and spending limits. Get real-time alerts when you're approaching your limits.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #FDF4FF; color: #9333EA;">🤖</div>
+            <h3>AI Financial Assistant</h3>
+            <p>Chat with an AI assistant that understands your finances. Get personalized advice, reports, and spending insights.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #FFF7ED; color: #EA580C;">📸</div>
+            <h3>Bill Scanner</h3>
+            <p>Scan receipts and bills with AI-powered text recognition. Automatically extract amounts and categorize expenses.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #F0FDFA; color: #0E7C7B;">👥</div>
+            <h3>Team & Company</h3>
+            <p>Manage team expenses, missions, and quotes (devis). Track budgets across projects with role-based access.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" style="background: #FEF2F2; color: #DC2626;">📍</div>
+            <h3>Attendance Tracking</h3>
+            <p>Check in and out with GPS verification. Track work hours and attendance for your team.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Pricing -->
+<div class="pricing" id="pricing">
+    <h2>Free to Use</h2>
+    <p class="desc">Start managing your finances today — no credit card required.</p>
+    <div class="pricing-card">
+        <span class="badge">FREE TIER</span>
+        <h3>Gestion Budget & Dépenses - IA</h3>
+        <p class="price">Free forever with generous limits. Premium features coming soon.</p>
+        <ul>
+            <li><span class="check">✓</span> Unlimited expense & income tracking</li>
+            <li><span class="check">✓</span> Budget management & savings goals</li>
+            <li><span class="check">✓</span> Financial reports & analytics</li>
+            <li><span class="check">✓</span> Team & company features</li>
+            <li><span class="check">✓</span> Multi-language support (EN, FR, AR, ES, Pular)</li>
+            <li><span class="check">✓</span> AI Chat Assistant <span class="limit">(daily limit applies)</span></li>
+            <li><span class="check">✓</span> AI Bill Scanner <span class="limit">(daily limit applies)</span></li>
+            <li><span class="check">✓</span> Push notifications & daily reports</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div class="footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="mailto:emkeyindustries@gmail.com">Contact Us</a>
+    </div>
+    <p class="copyright">&copy; 2026 Gestion Budget & Dépenses - IA. All rights reserved.</p>
+    <p class="contact">Contact: <a href="mailto:emkeyindustries@gmail.com">emkeyindustries@gmail.com</a></p>
+</div>
+
+</body>
+</html>
